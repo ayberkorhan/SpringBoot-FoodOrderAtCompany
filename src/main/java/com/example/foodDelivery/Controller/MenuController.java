@@ -1,14 +1,37 @@
 package com.example.foodDelivery.Controller;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.foodDelivery.Model.EmployeModel;
+import com.example.foodDelivery.Repository.EmployeRepository;
+import com.example.foodDelivery.Service.EmployeService;
 
 @RestController
 @RequestMapping("helloWord")
 public class MenuController {
+	
+	public MenuController(EmployeService employeService) {
+		super();
+		this.employeService = employeService;
+	}
+
+
+	private final EmployeService employeService;
+	
+	
+	
+
+
 
 	@Cacheable("menu")
 	@GetMapping()
@@ -24,5 +47,26 @@ public class MenuController {
 	public String delete() {
 		return "silindi";
 	}
+	
+	
+	@PostMapping("save")
+	public ResponseEntity<EmployeModel> saveEmploye(@RequestBody EmployeModel employeModel){
+		return ResponseEntity.ok(employeService.saveEmploye(employeModel));
+		//return ResponseEntity.ok(employeModel);
+		
+		
+	}
+	
+	
+	@GetMapping("employeList")
+	public ResponseEntity<List<EmployeModel>> getAllEmployes(){
+		return ResponseEntity.ok(employeService.getallEmployes());
+	}
+	
+	 @GetMapping("/findbyid/{id}")
+	    public String geBookById(@PathVariable String id) {
+	        return id;
+	    }
+	 
 
 }
