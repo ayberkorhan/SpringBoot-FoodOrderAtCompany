@@ -16,6 +16,8 @@ import com.example.foodDelivery.Model.EmployeModel;
 import com.example.foodDelivery.Repository.EmployeRepository;
 import com.example.foodDelivery.Service.EmployeService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("helloWord")
 public class MenuController {
@@ -29,10 +31,6 @@ public class MenuController {
 	private final EmployeService employeService;
 	
 	
-	
-
-
-
 	@Cacheable("menu")
 	@GetMapping()
 	public String hello() throws Exception {
@@ -63,10 +61,10 @@ public class MenuController {
 		return ResponseEntity.ok(employeService.getallEmployes());
 	}
 	
-	 @GetMapping("/findbyid/{id}")
-	    public String geBookById(@PathVariable String id) {
-	        return id;
-	    }
+	@GetMapping("cacheCheck")
+	public ResponseEntity<String> cacheCheck(HttpServletRequest request ) {
+		return ResponseEntity.ok(employeService.getById(request.getRemoteAddr()));
+	}
 	 
 
 }
