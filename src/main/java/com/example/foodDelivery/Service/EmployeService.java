@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.foodDelivery.Exceptions.EmpNotFoundException;
 import com.example.foodDelivery.Model.EmployeModel;
 import com.example.foodDelivery.Repository.EmployeRepository;
 
@@ -33,6 +34,21 @@ public class EmployeService {
 		//Optional<EmployeModel> employe = employeRepository.findById(ip);
 
 		//return employe.isPresent() ?  "cachde tanımlı  "+employe.get().getName() : "cache de yok  "+ip;
+		
+		Optional<EmployeModel> emp = Optional.ofNullable(new EmployeModel());
+		
+		//emp =	employeRepository.findById("abc");
+		//System.out.print(employeRepository.findById("abc").get().getIp());
+		//System.out.print(emp.get().getIp());
+		
+			//employeRepository.findById("abc").orElseThrow(() ->new EmpNotFoundException());
+		
+		
+		employeRepository.findById(ip).ifPresentOrElse(
+		        employe -> {throw new EmpNotFoundException();} ,
+		        () -> System.out.println("ip yok")
+		);
+		
 		
 		return employeRepository.findById(ip).isPresent() ? "cachde tanımlı " :getOrder()+ip;
 	}

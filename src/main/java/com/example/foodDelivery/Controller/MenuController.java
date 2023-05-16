@@ -1,6 +1,7 @@
 package com.example.foodDelivery.Controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -65,6 +66,13 @@ public class MenuController {
 	public ResponseEntity<String> cacheCheck(HttpServletRequest request ) {
 		return ResponseEntity.ok(employeService.getById(request.getRemoteAddr()));
 	}
-	 
+	
+	@GetMapping("deneme")
+	public String uid() {
+		
+		String uuid = UUID.randomUUID().toString();
+		
+		return uuid;
+	}
 
 }

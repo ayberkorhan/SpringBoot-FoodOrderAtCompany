@@ -22,9 +22,16 @@ public class EmployeModel implements Serializable {
 		
 		private String name;
 		
+		private String orderId;
 		
-		
-		
+		public String getOrderId() {
+			return orderId;
+		}
+
+		public void setOrderId(String orderId) {
+			this.orderId = orderId;
+		}
+
 		public String getName() {
 			return name;
 		}
